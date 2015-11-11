@@ -3,9 +3,9 @@
 CC= gcc 
 STD= -std=c99
 OPT= -O3
-DEBUG=
+DEBUG= -ggdb3
 WARN= -Wall -Werror -Wextra -pedantic
-CFLAGS= $(STD) $(OPT) $(DEBUG) $(WARN)
+CFLAGS= $(STD) $(OPT) $(WARN)
 LDFLAGS=
 LIBS=
 INCLUDES=
@@ -27,7 +27,6 @@ $(TARGET): $(OBJS)
 
 all: $(TARGET)
 
-debug: DEBUG= -ggdb3
 debug: OPT= $(DEBUG)
 debug: $(TARGET)
 
