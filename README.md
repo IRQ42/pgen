@@ -2,9 +2,9 @@ Pgen is a command line program for generating secure pseudorandom passwords. The
 
 Build insructions:
 
-  `run make `       for release version
+  `run make `       for release build
   
-  `run make debug`  for debugging
+  `run make debug`  for debugging build
   
   `run make intall` install to /usr/local/bin. You will need to run as effective root to install.
                     install directory can be easily changed by editing Makefile
