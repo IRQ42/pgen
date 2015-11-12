@@ -4,9 +4,14 @@
  * Passgen is a simple program that generates pseudorandom alphanumeric      *
  * strings. It currently supports several modes, allowing the user to        *
  * generate many strings at once, and to select the type of characters used  *
- * to compose the strings (currently lowercase, upper and lower, or upper,   *
- * lower, and digits). The length can also be specified. All options are     *
- * specified as command line arguments when invoking passgen. When invoked   *
+ * to compose the strings (currently lowercase, uppercase, digits, and punct *
+ * characters, as well as the ability to specify lists of additional         *
+ * characters which will be either excluded, or included to give a high level*
+ * of control over the character set used to generate passwords.             *
+ * The length can also be specified (max password length is LONG_MAX)        *
+ * All options ar specified as command line arguments when invoking pgen.    *
+ *                                                                           *
+ * When invoked without arguments, default parameters are used.              *
  * without options, a single string of default length and mode is produced.  *
  *                                                                           *
  * This software is currently free open source software, the author wrote    *
