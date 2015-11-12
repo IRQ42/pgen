@@ -31,8 +31,8 @@ debug: OPT= $(DEBUG)
 debug: $(TARGET)
 
 clean:
-	$(RM) $(OBJS) $(TARGET) 
+	$(RM) $(OBJS) $(TARGET)
 
 install: $(TARGET)
-	strip --strip-unneeded $(TARGET)
+	strip $(TARGET)
 	cp $(TARGET) $(INSTALL_DIR)/$(TARGET)
