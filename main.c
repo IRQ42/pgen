@@ -1,7 +1,7 @@
 /*****************************************************************************
- *                      Passgen, a password generator                        *
+ *                      Pgen, a password generator                        *
  *                      Author: IRQ42                                        *
- * Passgen is a simple program that generates pseudorandom alphanumeric      *
+ * Pagen is a simple program that generates pseudorandom alphanumeric      *
  * strings. It currently supports several modes, allowing the user to        *
  * generate many strings at once, and to select the type of characters used  *
  * to compose the strings (currently lowercase, uppercase, digits, and punct *
