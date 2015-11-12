@@ -1,15 +1,13 @@
 /*****************************************************************************
- *                      Pgen, a password generator                           *
+ *                      Passgen, a password generator                        *
  *                      Author: IRQ42                                        *
- * Pgen is a simple program that generates pseudorandom alphanumeric         *
+ * Passgen is a simple program that generates pseudorandom alphanumeric      *
  * strings. It currently supports several modes, allowing the user to        *
  * generate many strings at once, and to select the type of characters used  *
  * to compose the strings (currently lowercase, upper and lower, or upper,   *
  * lower, and digits). The length can also be specified. All options are     *
  * specified as command line arguments when invoking passgen. When invoked   *
  * without options, a single string of default length and mode is produced.  *
- *                                                                           *
- * For more info on program usage, invoke pgen -h to see all options         *
  *                                                                           *
  * This software is currently free open source software, the author wrote    *
  * this program purely out of boredom in his free time, and provides no      *
@@ -385,10 +383,19 @@ generate(size_t len, char *table, int fd)
     // produce a pseudorandom string comprised of characters from table
     for (size_t i = 0; i < len; ++i) {
         unsigned int rand;
+        unsigned int max_rand = UINT_MAX - ((long int) UINT_MAX + 1) % table_len;
 
         if (read(fd, &rand, sizeof rand) == -1) {
             perror("read");
             goto fail;
+        }
+        
+        // ensure against modulo bias
+        while (rand > max_rand) {
+            if (read(fd, &rand, sizeof rand) == -1) {
+                perror("read");
+                goto fail;
+            }
         }
 
         pstring[i] = table[rand % table_len];
