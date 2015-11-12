@@ -52,6 +52,17 @@
 #define IN_RANGE(MIN, MAX, N)    \
     ((N) >= (MIN) && (N) <= (MAX))
 
+char *strdup(const char *str)
+{
+    int n = strlen(str) + 1;
+    char *dup = malloc(n);
+    if(dup)
+    {
+        strcpy(dup, str);
+    }
+    return dup;
+}
+
 static char *generate(size_t len, char *table, int fd);
 static void die(char *msg, int status);
 static char *str_rmdup(const char *s);
