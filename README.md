@@ -7,7 +7,7 @@ Build insructions:
   `run make debug`  for debug build
   
   `run make install` install to /usr/local/bin. You will need to run as effective root to install.
-                    install directory can be easily changed by editing Makefile
+                    install directory can be easily changed by editing Makefile.
 
 Please invoke the help option via pgen -h for usage, or view info.c to see a list of available capabilities.
 
