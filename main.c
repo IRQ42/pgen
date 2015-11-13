@@ -299,7 +299,7 @@ main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < pass_cnt; ++i) {
+    for (size_t i = 0; i < pass_cnt; ++i) {
         char *pass;
 
         /* We needn't add pass to tree since we free ASAP */
