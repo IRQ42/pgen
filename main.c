@@ -58,7 +58,7 @@
     ((N) >= (MIN) && (N) <= (MAX))
 
 /**
- * Explicit definittion needed to build under OSX
+ * Explicit definition needed to build under OSX
  */
 char *strdup(const char *str)
 {
