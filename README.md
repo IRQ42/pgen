@@ -1,4 +1,6 @@
-Pgen is a command line program for generating secure pseudorandom passwords. There are a variety of options available which influence the output.
+Pgen is a command line program for Linux/Unix/OSX generating secure pseudorandom passwords. There are a variety of options available which influence the output.
+
+
 
 Build insructions:
 
