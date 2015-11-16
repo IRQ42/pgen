@@ -59,7 +59,7 @@
 
 /**
  * Explicit definittion needed to build under OSX
- * /
+ */
 char *strdup(const char *str)
 {
     int n = strlen(str) + 1;
