@@ -62,7 +62,7 @@
  */
 char *strdup(const char *str)
 {
-    int n = strlen(str) + 1;
+    size_t n = strlen(str) + 1;
     char *dup = malloc(n);
     if(dup)
     {
@@ -302,7 +302,7 @@ main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    for (size_t i = 0; i < pass_cnt; ++i) {
+    for (long i = 0; i < pass_cnt; ++i) {
         char *pass;
 
         /* We needn't add pass to tree since we free ASAP */
