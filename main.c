@@ -1,7 +1,7 @@
 /*****************************************************************************
- *                      Pgen, a password generator                        *
+ *                      Pgen, a password generator                           *
  *                      Author: IRQ42                                        *
- * Pagen is a simple program that generates pseudorandom alphanumeric      *
+ * Pagen is a simple program that generates pseudorandom alphanumeric        *
  * strings. It currently supports several modes, allowing the user to        *
  * generate many strings at once, and to select the type of characters used  *
  * to compose the strings (currently lowercase, uppercase, digits, and punct *
@@ -9,7 +9,7 @@
  * characters which will be either excluded, or included to give a high level*
  * of control over the character set used to generate passwords.             *
  * The length can also be specified (max password length is LONG_MAX)        *
- * All options ar specified as command line arguments when invoking pgen.    *
+ * All options are specified as command line arguments when invoking pgen.   *
  *                                                                           *
  * When invoked without arguments, default parameters are used.              *
  * without options, a single string of default length and mode is produced.  *
@@ -184,7 +184,7 @@ main(int argc, char **argv)
         case 'n':       // no substitution
             no_sub = 1;
             break;
-        case 'e':
+        case 'e':       // exclude chars
             qsort(optarg, strlen(optarg), sizeof(char), cmpchar);
             if (!(exclude_list = str_rmdup(optarg))) {
                 die("str_rmdup: allocation failed\n", EXIT_FAILURE);
@@ -193,7 +193,7 @@ main(int argc, char **argv)
                 die("pgen_alloc_bst_insert: allocation failed\n", EXIT_FAILURE);
             }
             break;
-        case 'i':
+        case 'i':       // include chars
             qsort(optarg, strlen(optarg), sizeof(char), cmpchar);
             if (!(include_list = str_rmdup(optarg))) {
                 die("str_rmdup: allocation failed\n", EXIT_FAILURE);
