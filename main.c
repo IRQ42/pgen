@@ -39,7 +39,7 @@
 #include "charset.h"
 #include "color.h"
 
-#define DEFAULT_PLEN    6
+#define DEFAULT_PLEN    8
 #define DEFAULT_PCNT    1
 
 #define PLEN_MIN        0
@@ -50,6 +50,8 @@
 #define FAST_CHAR_OPT_MIN       1
 #define FAST_CHAR_OPT_MAX       4
 #define DEFAULT_FAST_CHAR_OPT   3
+
+#define ANSI_COLOR_DEFAULT      4 // ANSI Blue 
 
 /**
  * This macro checks range of N; N is a member of the set [MIN,MAX] 
@@ -86,7 +88,7 @@ main(int argc, char **argv)
     charset_opt_t   char_opt            = 0;
     long            fast_char_opt       = DEFAULT_FAST_CHAR_OPT;
     int             fast_char_opt_on    = 1;
-    int             color_on            = 0;
+    int             text_color          = -1;
     int             prefix_on           = 0;
     int             dump_on             = 0;
     int             no_sub              = 0;
@@ -98,17 +100,42 @@ main(int argc, char **argv)
     int fd;
 
     int bad_args                = 0;
-
+    
+    const char * const ansi_sgr_tab[8] = {
+        ANSI_SETFG_BLACK,
+        ANSI_SETFG_RED,
+        ANSI_SETFG_GREEN,
+        ANSI_SETFG_YELLOW,
+        ANSI_SETFG_BLUE,
+        ANSI_SETFG_MAGENTA,
+        ANSI_SETFG_CYAN,
+        ANSI_SETFG_WHITE
+    };
+    
     if (atexit(pgen_exit_cleanup))
         die("E: cannot set exit function\n", EXIT_FAILURE);
 
     /* parse the command line arguments */
-    for (int opt; (opt = getopt(argc, argv, "CLUDPNdnhl:p:f:c:e:i:")) != -1; ) {
-        char *endptr; 
+    for (int opt; (opt = getopt(argc, argv, "C::LUDPNdnhl:p:f:c:e:i:")) != -1; ) {
+        char *endptr;
+
+        errno = 0; 
 
         switch (opt) {
         case 'C':       // color mode enable
-            color_on = 1; 
+            if (optarg) {
+                text_color = strtol(optarg, &endptr, 0);
+                if (errno || !IN_RANGE(0, 7, text_color)) {
+                    if (errno)
+                        perror("strtol");
+                    else
+                        fprintf(stderr, "%s: Invalid color level -- %d\n",
+                                *argv, text_color);
+                    exit(EXIT_FAILURE);
+                }
+            } else {
+                text_color = ANSI_COLOR_DEFAULT; 
+            }
             break;
         case 'L':       // character set switches override fast character mode
             char_opt |= LOWER;
@@ -311,11 +338,16 @@ main(int argc, char **argv)
             exit(EXIT_FAILURE);
         }
         
-        printf((color_on) ? ANSI_COLORTERM_YELLOW("%s%s\n") : "%s%s\n",
-               (prefix_on) ? pass_prefix : "", pass);
+        if (-1 != text_color) {
+            ANSI_COLOR_FPRINTF(ansi_sgr_tab[text_color], stdout, "%s%s\n",
+                    (prefix_on) ? pass_prefix : "", pass);
+        } else {
+            printf("%s%s\n", (prefix_on) ? pass_prefix : "", pass);
+        }
 
         free(pass);
     }
+    
     fflush(stdout);
     pgen_free(&g_alloc_bst, pass_prefix);
     close(fd);
