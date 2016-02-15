@@ -34,7 +34,8 @@
 #define ANSI_COLORTERM_MAGENTA(s)   \
     ANSI_SETFG_MAGENTA  s   ANSI_ATTR_RESET
 
-#define ANSI_COLORTERM_SET_S(S, SGR)\
-    SGR     S   ANSI_ATTR_RESET
+#define ANSI_COLOR_FPRINTF(SGR, STREAM, FORMAT, ...)    \
+    fputs(SGR, STREAM);                                 \
+    fprintf(STREAM, FORMAT ANSI_ATTR_RESET, __VA_ARGS__)
 
 #endif /* COLOR_H */
